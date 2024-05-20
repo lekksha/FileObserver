@@ -72,3 +72,8 @@ CMakeLists.txt.user*
 *.dll
 *.exe
 
+
+# Non-generated directories
+testFiles/
+widget.cpp
+widget.h
