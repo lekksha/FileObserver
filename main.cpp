@@ -1,6 +1,7 @@
 #include <QApplication>
 #include <QDir>
 #include <QDebug>
+#include <iostream>
 
 int main(int argc, char *argv[])
 {
@@ -30,10 +31,21 @@ entryInfoList,
                 qDebug() << inf.fileName() << "---" << inf.size();
             }
             dir.cdUp();//выходим из папки
-        }}
+        }
+    }
 
 //-------------------------------------
-
+    QDir dir = QDir("C:/Users/lekks/TSU/semester 6/TRPO/5-12/lab3/testFiles"); //объявляем объект работы с папками
+    dir.setFilter(QDir::Files | QDir::Hidden | QDir::NoSymLinks);
+    ///устанавливаем фильтр выводимых файлов
+    dir.setSorting(QDir::Size | QDir::Reversed); //устанавливаем сортировку "от меньшего к большему"
+        QFileInfoList list = dir.entryInfoList(); //получаем список файлов директории
+            qDebug() << " Bytes Filename"; //выводим заголовок
+    /* в цикле выводим сведения о файлах */
+    for (int i = 0; i < list.size(); ++i) {
+        QFileInfo fileInfo = list.at(i);
+        qDebug() << qPrintable(QString("%1 %2").arg(fileInfo.size(), 10).arg(fileInfo.fileName())); //выводим в формате "размер имя", переносим строку
+    }
 
     return a.exec();
 }
