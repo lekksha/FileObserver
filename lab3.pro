@@ -15,7 +15,9 @@ SOURCES += \
 #    widget.cpp
 
 HEADERS += \
-#    widget.h
+    calculationstrategy.h \
+    customlib.h \
+ #    widget.h
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
