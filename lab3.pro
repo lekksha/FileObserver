@@ -17,6 +17,8 @@ SOURCES += \
 HEADERS += \
     calculationstrategy.h \
     customlib.h \
+    extensioncalculationstrategy.h \
+    foldercalculationstrategy.h
  #    widget.h
 
 # Default rules for deployment.
