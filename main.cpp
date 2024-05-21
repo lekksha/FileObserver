@@ -2,28 +2,7 @@
 #include <QDir>
 #include <QDebug>
 #include <iostream>
-
-
-// Calculates size of the folder in argument
-qint64 getSizeOf(QString path) {
-    QFileInfo fileInfo = QFileInfo(path);
-    if (fileInfo.isDir()) {
-        QDir dir = fileInfo.dir();
-        if (dir.cd(fileInfo.fileName())) {
-            qint64 currentDirectorySize = 0;
-            foreach (QFileInfo file, dir.entryInfoList(QDir::Files | QDir::NoDotAndDotDot, QDir::Size)) {
-                currentDirectorySize += file.size();
-            }
-            foreach (QFileInfo folder, dir.entryInfoList(QDir::Dirs | QDir::NoDotAndDotDot, QDir::Size)) {
-                currentDirectorySize += getSizeOf(folder.absoluteFilePath());
-            }
-            return currentDirectorySize;
-        }
-    }
-    else {
-        return fileInfo.size();
-    }
-}
+#include "customlib.h"
 
 
 int main(int argc, char *argv[])
@@ -32,6 +11,7 @@ int main(int argc, char *argv[])
 
     QString path = "C:/Users/lekks/TSU/semester 6/TRPO/5-12/lab3/testFiles";
     qDebug() << "SIZE: " << getSizeOf(path);
+    qDebug() << "SIZE: " << getSizeOfFilesIn(path);
 //    QDir myDir;
 //    myDir.setPath("C:/Users/lekks/TSU/semester 6/TRPO/5-12/lab3/testFiles");
 //    QFileInfo fileInfo = QFileInfo(myDir.path());

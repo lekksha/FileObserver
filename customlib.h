@@ -6,6 +6,7 @@
 #include <QString>
 
 
+// Calculates size of the folder in argument
 qint64 getSizeOf(QString path) {
     QFileInfo fileInfo = QFileInfo(path);
     if (fileInfo.isDir()) {
@@ -17,6 +18,24 @@ qint64 getSizeOf(QString path) {
             }
             foreach (QFileInfo folder, dir.entryInfoList(QDir::Dirs | QDir::NoDotAndDotDot, QDir::Size)) {
                 currentDirectorySize += getSizeOf(folder.absoluteFilePath());
+            }
+            return currentDirectorySize;
+        }
+    }
+    else {
+        return fileInfo.size();
+    }
+}
+
+
+qint64 getSizeOfFilesIn(QString path) {
+    QFileInfo fileInfo = QFileInfo(path);
+    if (fileInfo.isDir()) {
+        QDir dir = fileInfo.dir();
+        if (dir.cd(fileInfo.fileName())) {
+            qint64 currentDirectorySize = 0;
+            foreach (QFileInfo file, dir.entryInfoList(QDir::Files | QDir::NoDotAndDotDot, QDir::Size)) {
+                currentDirectorySize += file.size();
             }
             return currentDirectorySize;
         }
