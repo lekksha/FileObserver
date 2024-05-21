@@ -3,15 +3,17 @@
 #include <QDebug>
 #include <iostream>
 #include "customlib.h"
-
+#include "foldercalculationstrategy.h"
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
 
     QString path = "C:/Users/lekks/TSU/semester 6/TRPO/5-12/lab3/testFiles";
-    qDebug() << "SIZE: " << getSizeOf(path);
-    qDebug() << "SIZE: " << getSizeOfFilesIn(path);
+    FolderCalculationStrategy strat = FolderCalculationStrategy();
+    strat.calculate(path);
+//    qDebug() << "SIZE: " << getSizeOf(path);
+//    qDebug() << "SIZE: " << getSizeOfFilesIn(path);
 //    QDir myDir;
 //    myDir.setPath("C:/Users/lekks/TSU/semester 6/TRPO/5-12/lab3/testFiles");
 //    QFileInfo fileInfo = QFileInfo(myDir.path());
