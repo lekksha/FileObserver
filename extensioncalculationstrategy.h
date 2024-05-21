@@ -7,6 +7,7 @@
 #include <QDir>
 #include <QMap>
 #include <QDebug>
+#include <QList>
 
 QMap<QString, quint64> extensionCalculate(QString path, QMap<QString, quint64>& map) {
     QFileInfo fileInfo = QFileInfo(path);
@@ -40,19 +41,33 @@ public:
         //        QFileInfoList list = dir.entryInfoList(); //получаем список файлов директории
         QMap<QString, quint64> extensions_size;
         extensions_size = extensionCalculate(path, extensions_size);
-        qDebug() << " Bytes Extension"; //выводим заголовок
+
+        QList<QPair<quint64, QString>> listOfFolders;
+        for(auto it = extensions_size.begin(); it != extensions_size.end(); ++it)
+            listOfFolders.append(qMakePair(it.value(), it.key()));
+
+        std::sort(listOfFolders.begin(), listOfFolders.end());
+
+        qDebug() << qPrintable(QString("%1 %2 %3")
+                                   .arg("Bytes", 15)
+                                   .arg("Extension", 30)
+                                   .arg("Percent", 21));
+        qDebug() << " ";
+
+        // Calculating size of the whole folder
+        quint64 dotFolderSize = 0;
+        for (int i = 0; i < listOfFolders.size(); ++i) {
+            dotFolderSize += listOfFolders[i].first;
+        };
+
         /* в цикле выводим сведения о файлах */
-
-        QMap<QString, quint64>::iterator i;
-        for (i = extensions_size.begin(); i != extensions_size.end(); ++i) {
-            qDebug() << qPrintable(QString("%1 %2").arg(i.value(), 10).arg(i.key()));
+        for (int i = 0; i < listOfFolders.size(); ++i) {
+            qDebug() << qPrintable(QString("%1 %2 %3%")
+                                       .arg(listOfFolders[i].first, 15)
+                                       .arg(listOfFolders[i].second, 30)
+                                       .arg(QString::number((static_cast<double>(listOfFolders[i].first) / static_cast<double>(dotFolderSize)), 'f', 2), 20));
         }
-
-        //        for (int i = 0; i < list.size(); ++i) {
-        //            QFileInfo fileInfo = list.at(i);
-        //            qDebug() << qPrintable(QString("%1 %2").arg(fileInfo.size(), 10).arg(fileInfo.fileName())); //выводим в формате "размер имя", переносим строку
-        //        }
-    }
+    };
 };
 
 #endif // EXTENSIONCALCULATIONSTRATEGY_H
