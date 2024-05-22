@@ -35,7 +35,6 @@ QMap<QString, quint64> extensionCalculate(QString path, QMap<QString, quint64>& 
 class ExtensionCalculationStrategy : public CalculationStrategy {
 public:
     void calculate(QString path) {
-        QDir dir = QDir("C:/Users/lekks/TSU/semester 6/TRPO/5-12/lab3/testFiles");
         QMap<QString, quint64> extensions_size;
         extensions_size = extensionCalculate(path, extensions_size);
 

@@ -25,7 +25,7 @@ public:
         }
         std::sort(listOfExstensonSize.begin(), listOfExstensonSize.end());
 
-        show(listOfExstensonSize, "Extension");
+        show(listOfExstensonSize, "Folder");
     };
 };
 
