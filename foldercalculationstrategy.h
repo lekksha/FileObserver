@@ -11,7 +11,7 @@ class FolderCalculationStrategy : public CalculationStrategy {
 public:
     FolderCalculationStrategy() {};
     void calculate(QString path) override {
-        QDir dir = QDir("C:/Users/lekks/TSU/semester 6/TRPO/5-12/lab3/testFiles");
+        QDir dir = QDir(path);
         QMap<QString, quint64> folder_size;
 
         folder_size.insert("(Current Directory)", getSizeOfFilesIn(path));
@@ -25,7 +25,7 @@ public:
         }
         std::sort(listOfExstensonSize.begin(), listOfExstensonSize.end());
 
-        show(listOfExstensonSize, "Extension");
+        show(listOfExstensonSize, "Folder");
     };
 };
 
