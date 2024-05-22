@@ -10,16 +10,21 @@
 void execute(QString path, unsigned int flag) {
 
     std::unique_ptr<CalculationStrategy> strat = nullptr;
-    if (flag == 0) {
-        strat = std::make_unique<FolderCalculationStrategy>();
-    }
-    else if (flag == 1) {
-        strat = std::make_unique<ExtensionCalculationStrategy>();
+    if (QFileInfo(path).isDir()) {
+        if (flag == 0) {
+            strat = std::make_unique<FolderCalculationStrategy>();
+        }
+        else if (flag == 1) {
+            strat = std::make_unique<ExtensionCalculationStrategy>();
+        }
+        else {
+            throw std::runtime_error("Not supported");
+        }
+        strat->calculate(path);
     }
     else {
-        throw std::runtime_error( "Not supported" );
+        throw std::runtime_error("Entered path is not a folder");
     }
-    strat->calculate(path);
 }
 
 
@@ -29,7 +34,7 @@ int main(int argc, char *argv[])
 
 
     QString path = "C:/Users/lekks/TSU/semester 6/TRPO/5-12/lab3/testFiles/";
-    unsigned int flag = CalculationStrategy::EXTENSION;
+    unsigned int flag = CalculationStrategy::FOLDER;
     execute(path, flag);
 
 
