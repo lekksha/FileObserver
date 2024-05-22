@@ -19,34 +19,13 @@ public:
             folder_size.insert(folder.fileName(), getSizeOfFilesIn(folder.absoluteFilePath()));
         }
 
-        QList<QPair<quint64, QString>> listOfExt;
-        for(auto it = folder_size.begin(); it != folder_size.end(); ++it)
-            listOfExt.append(qMakePair(it.value(), it.key()));
+        QList<QPair<quint64, QString>> listOfExstensonSize;
+        for(auto it = folder_size.begin(); it != folder_size.end(); ++it) {
+            listOfExstensonSize.append(qMakePair(it.value(), it.key()));
+        }
+        std::sort(listOfExstensonSize.begin(), listOfExstensonSize.end());
 
-        std::sort(listOfExt.begin(), listOfExt.end());
-
-
-
-        qDebug() << qPrintable(QString("%1 %2 %3")
-                                   .arg("Bytes", 15)
-                                   .arg("Folder", 30)
-                                   .arg("Percent", 21));
-        qDebug() << " ";
-
-
-        // Calculating size of the whole folder
-        quint64 dotFolderSize = 0;
-        for (int i = 0; i < listOfExt.size(); ++i) {
-            dotFolderSize += listOfExt[i].first;
-        };
-
-        /* в цикле выводим сведения о файлах */
-        for (int i = 0; i < listOfExt.size(); ++i) {
-            qDebug() << qPrintable(QString("%1 %2 %3%")
-                                       .arg(listOfExt[i].first, 15)
-                                       .arg(listOfExt[i].second, 30)
-                                       .arg(QString::number((static_cast<double>(listOfExt[i].first) / static_cast<double>(dotFolderSize)), 'f', 2), 20));
-        };
+        show(listOfExstensonSize, "Extension");
     };
 };
 
