@@ -105,7 +105,7 @@ void show(QList<QPair<quint64, QString>> size_item, QString second_item_name) {
         qDebug() << qPrintable(QString("%1 %2 %3%")
                                    .arg(size_item[i].first, maxStringLengthInColumn1)
                                    .arg(size_item[i].second, maxStringLengthInColumn2)
-                                   .arg(QString::number((static_cast<double>(size_item[i].first) / static_cast<double>(totalSize)), 'f', 2), percent.length()));
+                                   .arg(QString::number((static_cast<double>(size_item[i].first) / static_cast<double>(totalSize)) * 100, 'f', 2), percent.length()));
                                             // percent.length() - has the biggest length if 2 dighits after dot are required
     }
 }
