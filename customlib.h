@@ -82,31 +82,50 @@ int calculateMaxStringLengthInPair(QList<QPair<quint64, QString>> size_item, uns
 }
 
 
-void show(QList<QPair<quint64, QString>> size_item, QString second_item_name) {
-    QString bytes = "Bytes";
-    QString percent = "Percent";
-    int maxStringLengthInColumn1 = calculateMaxStringLengthInPair(size_item, 0, bytes.length());
-    int maxStringLengthInColumn2 = calculateMaxStringLengthInPair(size_item, 1, second_item_name.length());
-
-    qDebug() << qPrintable(QString("%1 %2 %3")
-                               .arg(bytes, maxStringLengthInColumn1)
-                               .arg(second_item_name, maxStringLengthInColumn2)
-                               .arg(percent, percent.length()+1));  // +1 comes for percent display in strings
-    qDebug() << " ";
-
+QString getPercent(quint64 dir_size, quint64 total_size) {
     // Calculating size of the whole folder
-    quint64 totalSize = 0;
-    for (int i = 0; i < size_item.size(); i++) {
-        totalSize += size_item[i].first;
-    };
+    double percent = static_cast<double>(dir_size) / static_cast<double>(total_size);
+    QString res = "";
+    if (percent < 0.01) {
+        res = "<0.01";
+    }
+    else {
+        res = QString::number(percent, 'f', 2);
+    }
+    return res;
+}
 
-    // Showing details to console
-    for (int i = 0; i < size_item.size(); i++) {
-        qDebug() << qPrintable(QString("%1 %2 %3%")
-                                   .arg(size_item[i].first, maxStringLengthInColumn1)
-                                   .arg(size_item[i].second, maxStringLengthInColumn2)
-                                   .arg(QString::number((static_cast<double>(size_item[i].first) / static_cast<double>(totalSize)) * 100, 'f', 2), percent.length()));
-                                            // percent.length() - has the biggest length if 2 dighits after dot are required
+
+void show(QList<QPair<quint64, QString>> size_item, QString second_item_name) {
+    if (size_item.isEmpty()) {
+        qDebug() << "Folder in input is empty";
+    }
+    else {
+        QString bytes = "Bytes";
+        QString percent = "Percent";
+        int maxStringLengthInColumn1 = calculateMaxStringLengthInPair(size_item, 0, bytes.length());
+        int maxStringLengthInColumn2 = calculateMaxStringLengthInPair(size_item, 1, second_item_name.length());
+
+        qDebug() << qPrintable(QString("%1 %2 %3")
+                                   .arg(bytes, maxStringLengthInColumn1)
+                                   .arg(second_item_name, maxStringLengthInColumn2)
+                                   .arg(percent, percent.length()+1));  // +1 comes for percent display in strings
+        qDebug() << " ";
+
+        // Calculating size of the whole folder
+        quint64 totalSize = 0;
+        for (int i = 0; i < size_item.size(); i++) {
+            totalSize += size_item[i].first;
+        };
+
+        // Showing details to console
+        for (int i = 0; i < size_item.size(); i++) {
+            qDebug() << qPrintable(QString("%1 %2 %3%")
+                                       .arg(size_item[i].first, maxStringLengthInColumn1)
+                                       .arg(size_item[i].second, maxStringLengthInColumn2)
+                                       .arg(getPercent(size_item[i].first, totalSize), percent.length()));
+                                                // percent.length() - has the biggest length if 2 dighits after dot are required
+        }
     }
 }
 

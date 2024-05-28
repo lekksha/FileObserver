@@ -74,6 +74,5 @@ CMakeLists.txt.user*
 
 
 # Non-generated directories
-testFiles/
 widget.cpp
-widget.h
+widget.h    
