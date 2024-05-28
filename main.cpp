@@ -8,7 +8,6 @@
 
 
 void execute(QString path, unsigned int flag) {
-
     std::unique_ptr<CalculationStrategy> strat = nullptr;
     if (QFileInfo(path).isDir()) {
         if (flag == 0) {
@@ -33,8 +32,8 @@ int main(int argc, char *argv[])
     QApplication a(argc, argv);
 
 
-    QString path = "C:/Users/lekks/TSU/semester 6/TRPO/5-12/lab3/testFiles/";
-    unsigned int flag = CalculationStrategy::FOLDER;
+    QString path = "C:/Users/lekks/TSU/semester 6/TRPO/5-12/lab3/testFiles/empty folder";
+    unsigned int flag = CalculationStrategy::EXTENSION;
     execute(path, flag);
 
 
