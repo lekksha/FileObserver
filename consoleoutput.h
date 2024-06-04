@@ -16,7 +16,8 @@ private:
             res = "<0.01";
         }
         else {
-            res = QString::number(percent * 100, 'f', 2);
+            percent = percent * 100;
+            res = QString::number(percent, 'f', 2);
         }
         return res;
     }
@@ -92,7 +93,7 @@ public:
                     // percent.length() - has the biggest length if 2 dighits after dot are required
             }
         }
-    }
+        }
 };
 
 #endif // CONSOLEOUTPUT_H
