@@ -34,7 +34,7 @@ QMap<QString, quint64> extensionCalculate(QString path, QMap<QString, quint64>& 
 
 class ExtensionCalculationStrategy : public CalculationStrategy {
 public:
-    void calculate(QString path) {
+    void exec(QString path) {
         QMap<QString, quint64> extensions_size;
         extensions_size = extensionCalculate(path, extensions_size);
 

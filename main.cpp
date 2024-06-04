@@ -11,7 +11,6 @@ void execute(QString path, unsigned int flag) {
     if (QFileInfo(path).isDir()) {
         std::unique_ptr<CalculationStrategy> strat = nullptr;
         if (flag == 0) {
-
             strat = std::make_unique<FolderCalculationStrategy>();
         }
         else if (flag == 1) {
@@ -20,7 +19,7 @@ void execute(QString path, unsigned int flag) {
         else {
             throw std::runtime_error("Not supported");
         }
-        strat->calculate(path);
+        strat->exec(path);
     }
     else {
         throw std::runtime_error("Entered path is not a folder");

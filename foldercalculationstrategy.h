@@ -10,7 +10,7 @@
 class FolderCalculationStrategy : public CalculationStrategy {
 public:
     FolderCalculationStrategy() {};
-    void calculate(QString path) override {
+    void exec(QString path) override {
         QDir dir = QDir(path);
         QMap<QString, quint64> folder_size;
 
