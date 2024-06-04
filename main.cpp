@@ -9,12 +9,12 @@
 
 void execute(QString path, unsigned int flag) {
     if (QFileInfo(path).isDir()) {
-        std::unique_ptr<CalculationStrategy> strat = nullptr;
+        std::shared_ptr<CalculationStrategy> strat = nullptr;
         if (flag == 0) {
-            strat = std::make_unique<FolderCalculationStrategy>();
+            strat = std::make_shared<FolderCalculationStrategy>();
         }
         else if (flag == 1) {
-            strat = std::make_unique<ExtensionCalculationStrategy>();
+            strat = std::make_shared<ExtensionCalculationStrategy>();
         }
         else {
             throw std::runtime_error("Not supported");
