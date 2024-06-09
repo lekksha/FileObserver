@@ -16,7 +16,7 @@ public:
 
         folder_size.insert("(Current Directory)", getSizeOfFilesIn(path));
         foreach (QFileInfo folder, dir.entryInfoList(QDir::Dirs | QDir::NoDotAndDotDot, QDir::Size)) {
-            folder_size.insert(folder.fileName(), getSizeOfFilesIn(folder.absoluteFilePath()));
+            folder_size.insert(folder.fileName(), getSizeOf(folder.absoluteFilePath()));
         }
 
         return folder_size;

@@ -66,7 +66,7 @@ int main(int argc, char *argv[])
     consoleInst.show(res, "Extension");
 
 
-    std::cout << std::endl << "Test 3. The Only One" << std::endl;
+    std::cout << std::endl << "Test 2. The Only One" << std::endl;
     path = "C:/Users/lekks/TSU/semester 6/TRPO/5-12/lab3/testFiles/folder2/";
 
     calculator = std::make_shared<PercentCalculator>();

@@ -39,6 +39,9 @@ qint64 getSizeOfFilesIn(QString path) {
             foreach (QFileInfo file, dir.entryInfoList(QDir::Files | QDir::NoDotAndDotDot, QDir::Size)) {
                 currentDirectorySize += file.size();
             }
+            foreach (QFileInfo file, dir.entryInfoList(QDir::Dirs | QDir::NoDotAndDotDot, QDir::Size)) {
+                getSizeOf(file.absoluteFilePath());
+            }
             return currentDirectorySize;
         }
     }

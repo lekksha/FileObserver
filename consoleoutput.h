@@ -1,6 +1,7 @@
 #ifndef CONSOLEOUTPUT_H
 #define CONSOLEOUTPUT_H
 #include <QDebug>
+#include <QString>
 #include <cmath>
 
 
