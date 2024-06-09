@@ -10,22 +10,24 @@
 class FolderCalculationStrategy : public CalculationStrategy {
 public:
     FolderCalculationStrategy() {};
-    void calculate(QString path) override {
+    QMap<QString, quint64> exec(QString path)  {
         QDir dir = QDir(path);
         QMap<QString, quint64> folder_size;
 
         folder_size.insert("(Current Directory)", getSizeOfFilesIn(path));
         foreach (QFileInfo folder, dir.entryInfoList(QDir::Dirs | QDir::NoDotAndDotDot, QDir::Size)) {
-            folder_size.insert(folder.fileName(), getSizeOfFilesIn(folder.absoluteFilePath()));
+            folder_size.insert(folder.fileName(), getSizeOf(folder.absoluteFilePath()));
         }
 
-        QList<QPair<quint64, QString>> listOfExstensonSize;
-        for(auto it = folder_size.begin(); it != folder_size.end(); ++it) {
-            listOfExstensonSize.append(qMakePair(it.value(), it.key()));
-        }
-        std::sort(listOfExstensonSize.begin(), listOfExstensonSize.end());
+        return folder_size;
 
-        show(listOfExstensonSize, "Folder");
+//        QList<QPair<quint64, QString>> listOfExstensonSize;
+//        for(auto it = folder_size.begin(); it != folder_size.end(); ++it) {
+//            listOfExstensonSize.append(qMakePair(it.value(), it.key()));
+//        }
+//        std::sort(listOfExstensonSize.begin(), listOfExstensonSize.end());
+
+//        show(listOfExstensonSize, "Folder");
     };
 };
 

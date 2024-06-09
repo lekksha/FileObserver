@@ -8,7 +8,6 @@
 #include <QMap>
 #include <QDebug>
 #include <QList>
-#include "customlib.h"
 
 QMap<QString, quint64> extensionCalculate(QString path, QMap<QString, quint64>& map) {
     QFileInfo fileInfo = QFileInfo(path);
@@ -24,7 +23,7 @@ QMap<QString, quint64> extensionCalculate(QString path, QMap<QString, quint64>& 
                 }
             }
             foreach (QFileInfo folder, dir.entryInfoList(QDir::Dirs | QDir::NoDotAndDotDot, QDir::Size)) {
-                extensionCalculate(folder.absoluteFilePath(), map);
+                extensionCalculate(folder.absoluteFilePath(), map); // recursive
             }
         }
     }
@@ -34,17 +33,19 @@ QMap<QString, quint64> extensionCalculate(QString path, QMap<QString, quint64>& 
 
 class ExtensionCalculationStrategy : public CalculationStrategy {
 public:
-    void calculate(QString path) {
+    QMap<QString, quint64> exec(QString path) {
         QMap<QString, quint64> extensions_size;
         extensions_size = extensionCalculate(path, extensions_size);
+        return extensions_size;
 
-        QList<QPair<quint64, QString>> listOfExstensonSize;
-        for(auto it = extensions_size.begin(); it != extensions_size.end(); ++it)
-            listOfExstensonSize.append(qMakePair(it.value(), it.key()));
 
-        std::sort(listOfExstensonSize.begin(), listOfExstensonSize.end());
+//        QList<QPair<quint64, QString>> listOfExstensonSize;
+//        for(auto it = extensions_size.begin(); it != extensions_size.end(); ++it)
+//            listOfExstensonSize.append(qMakePair(it.value(), it.key()));
 
-        show(listOfExstensonSize, "Extensions");
+//        std::sort(listOfExstensonSize.begin(), listOfExstensonSize.end());
+
+//        show(listOfExstensonSize, "Extensions");
         }
     };
 

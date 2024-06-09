@@ -2,6 +2,7 @@
 #define CALCULATIONSTRATEGY_H
 
 #include <QString>
+#include <QPair>
 
 
 
@@ -14,7 +15,7 @@ public:
         EXTENSION,
     };
     CalculationStrategy() {};
-    virtual void calculate(QString path) = 0;
+    virtual QMap<QString, quint64> exec(QString path) = 0;
 };
 
 #endif // CALCULATIONSTRATEGY_H
