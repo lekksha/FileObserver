@@ -3,6 +3,7 @@ QT       += core gui
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 CONFIG += c++17
+CONFIG += console
 
 # You can make your code fail to compile if it uses deprecated APIs.
 # In order to do so, uncomment the following line.
@@ -14,6 +15,11 @@ SOURCES += \
         mainwindow.cpp
 
 HEADERS += \
+        calculationstrategy.h \
+        consoleoutput.h \
+        extensioncalculationstrategy.h \
+        foldercalculationstrategy.h \
+        percentcalculator.h \
         filebrowserdatamodel.h \
         mainwindow.h \
         somedata.h
