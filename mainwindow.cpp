@@ -21,7 +21,7 @@ MainWindow::MainWindow(QWidget *parent)
 	this->statusBar()->showMessage("Choosen Path: ");
 	QString homePath = QDir::homePath();
 	// Определим  файловой системы:
-	dirModel =  new QFileSystemModel(this);
+    dirModel = new QFileSystemModel(this);
 	dirModel->setFilter(QDir::NoDotAndDotDot | QDir::AllDirs);
 	dirModel->setRootPath(homePath);
 
@@ -31,8 +31,8 @@ MainWindow::MainWindow(QWidget *parent)
 	fileModel->setRootPath(homePath);
 	//Показать как дерево, пользуясь готовым видом:
 
-	treeView = new QTreeView();
-	treeView->setModel(dirModel);
+    treeView = new QTreeView();
+    treeView->setModel(dirModel);
 
 	treeView->expandAll();
 	QSplitter *splitter = new QSplitter(parent);
@@ -45,7 +45,7 @@ MainWindow::MainWindow(QWidget *parent)
 	QItemSelectionModel *selectionModel = treeView->selectionModel();
 	QModelIndex rootIx = dirModel->index(0, 0, QModelIndex());//корневой элемент
 
-	QModelIndex indexHomePath = dirModel->index(homePath);
+    QModelIndex indexHomePath = dirModel->index(homePath);
 	QFileInfo fileInfo = dirModel->fileInfo(indexHomePath);
 
 	/* Рассмотрим способы обхода содержимого папок на диске.
@@ -107,7 +107,7 @@ void MainWindow::on_selectionChangedSlot(const QItemSelection &selected, const Q
 	// Размещаем инфо в statusbar относительно выделенного модельного индекса
 
 	if (indexs.count() >= 1) {
-		QModelIndex ix =  indexs.constFirst();
+        QModelIndex ix = indexs.constFirst();
 		filePath = dirModel->filePath(ix);
 		this->statusBar()->showMessage("Выбранный путь : " + dirModel->filePath(indexs.constFirst()));
 	}

@@ -11,13 +11,11 @@ CONFIG += c++17
 SOURCES += \
         filebrowserdatamodel.cpp \
         main.cpp \
-        mainwindow.cpp \
-        fileexplorermodel.cpp
+        mainwindow.cpp
 
 HEADERS += \
         filebrowserdatamodel.h \
         mainwindow.h \
-        fileexplorermodel.h \
         somedata.h
 
 # Default rules for deployment.
