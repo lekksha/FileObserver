@@ -1,13 +1,52 @@
 #ifndef FOLDERCALCULATIONSTRATEGY_H
 #define FOLDERCALCULATIONSTRATEGY_H
 #include "calculationstrategy.h"
-#include "customlib.h"
 #include <QDebug>
-
-
+#include <QDir>
 
 
 class FolderCalculationStrategy : public CalculationStrategy {
+private:
+    // Calculates size of the folder in argument
+    qint64 getSizeOf(QString path) {
+        QFileInfo fileInfo = QFileInfo(path);
+        if (fileInfo.isDir()) {
+            QDir dir = fileInfo.dir();
+            if (dir.cd(fileInfo.fileName())) {
+                qint64 currentDirectorySize = 0;
+                foreach (QFileInfo file, dir.entryInfoList(QDir::Files | QDir::NoDotAndDotDot, QDir::Size)) {
+                    currentDirectorySize += file.size();
+                }
+                foreach (QFileInfo folder, dir.entryInfoList(QDir::Dirs | QDir::NoDotAndDotDot, QDir::Size)) {
+                    currentDirectorySize += getSizeOf(folder.absoluteFilePath());
+                }
+                return currentDirectorySize;
+            }
+        }
+        else {
+            return fileInfo.size();
+        }
+    };
+
+    qint64 getSizeOfFilesIn(QString path) {
+        QFileInfo fileInfo = QFileInfo(path);
+        if (fileInfo.isDir()) {
+            QDir dir = fileInfo.dir();
+            if (dir.cd(fileInfo.fileName())) {
+                qint64 currentDirectorySize = 0;
+                foreach (QFileInfo file, dir.entryInfoList(QDir::Files | QDir::NoDotAndDotDot, QDir::Size)) {
+                    currentDirectorySize += file.size();
+                }
+                foreach (QFileInfo file, dir.entryInfoList(QDir::Dirs | QDir::NoDotAndDotDot, QDir::Size)) {
+                    getSizeOf(file.absoluteFilePath());
+                }
+                return currentDirectorySize;
+            }
+        }
+        else {
+            return fileInfo.size();
+        }
+    }
 public:
     FolderCalculationStrategy() {};
     QMap<QString, quint64> exec(QString path)  {
@@ -20,14 +59,6 @@ public:
         }
 
         return folder_size;
-
-//        QList<QPair<quint64, QString>> listOfExstensonSize;
-//        for(auto it = folder_size.begin(); it != folder_size.end(); ++it) {
-//            listOfExstensonSize.append(qMakePair(it.value(), it.key()));
-//        }
-//        std::sort(listOfExstensonSize.begin(), listOfExstensonSize.end());
-
-//        show(listOfExstensonSize, "Folder");
     };
 };
 
