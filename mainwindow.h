@@ -7,6 +7,7 @@
 #include <QTreeView>
 #include <QTableView>
 #include <SomeData.h>
+#include <FileBrowserDataModel.h>
 
 class MainWindow : public QMainWindow
 {
@@ -19,7 +20,7 @@ public:
 	MainWindow(QWidget *parent = 0);
 	~MainWindow();
 private:
-	QFileSystemModel *fileModel;
+    FileBrowserDataModel *fileModel;
 	QFileSystemModel *dirModel;
 	QTreeView *treeView;
 	QTableView *tableView;

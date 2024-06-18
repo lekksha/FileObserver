@@ -10,6 +10,7 @@
 #include <QHeaderView>
 #include <QStatusBar>
 #include <QDebug>
+#include <FileBrowserDataModel.h>
 
 MainWindow::MainWindow(QWidget *parent)
 	: //QWidget(parent)
@@ -25,10 +26,21 @@ MainWindow::MainWindow(QWidget *parent)
 	dirModel->setFilter(QDir::NoDotAndDotDot | QDir::AllDirs);
 	dirModel->setRootPath(homePath);
 
-	fileModel = new QFileSystemModel(this);
-	fileModel->setFilter(QDir::NoDotAndDotDot | QDir::Files);
 
-	fileModel->setRootPath(homePath);
+    //Создаем модельные данные и заполняем их
+    QList<SomeData> someDataModel;
+    someDataModel.append(SomeData("*.pdf", "3021", "%?"));
+    someDataModel.append(SomeData("*.doc", "5060", "%?"));
+    someDataModel.append(SomeData("*.txt", "4500", "%?"));
+    someDataModel.append(SomeData("*.exe", "23784", "%?"));
+    someDataModel.append(SomeData("others", "3045", "%?"));
+
+
+
+    fileModel = new FileBrowserDataModel(nullptr, someDataModel);
+    //fileModel->setFilter(QDir::NoDotAndDotDot | QDir::Files);
+
+    //fileModel->setRootPath(homePath);
 	//Показать как дерево, пользуясь готовым видом:
 
     treeView = new QTreeView();
@@ -37,7 +49,8 @@ MainWindow::MainWindow(QWidget *parent)
 	treeView->expandAll();
 	QSplitter *splitter = new QSplitter(parent);
 	tableView = new QTableView;
-	tableView->setModel(fileModel);
+    tableView->setModel(fileModel);
+
 	splitter->addWidget(treeView);
 	splitter->addWidget(tableView);
 	setCentralWidget(splitter);
@@ -129,7 +142,7 @@ void MainWindow::on_selectionChangedSlot(const QItemSelection &selected, const Q
 	}
 
 	treeView->header()->resizeSection(index.column(), length + dirModel->fileName(index).length());
-	tableView->setRootIndex(fileModel->setRootPath(filePath));
+    //tableView->setRootIndex(fileModel->setRootPath(filePath));
 }
 
 MainWindow::~MainWindow()
